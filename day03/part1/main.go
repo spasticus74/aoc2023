@@ -53,14 +53,6 @@ func main() {
 	inputSlice = append(inputSlice, string(dummyString))
 	pageHeight++
 
-	// parse the file line by line looking for symbols
-	/*for rowNum, row := range inputMatrix {
-		for colNum, col := range row {
-			if reNotNumberOrDot.FindAllString(col, 1) != nil {
-				fmt.Printf("found \"%s\" at [%d,%d]\n", col, rowNum, colNum)
-			}
-		}
-	}*/
 	for lineNumber, line := range inputSlice {
 		matches := reNumber.FindAllStringSubmatch(line, -1)
 		if matches == nil {
@@ -69,7 +61,6 @@ func main() {
 		for _, m := range matches {
 			pos := strings.Index(line, m[0])
 			if pos > -1 { //found a number
-				//fmt.Printf("Found \"%s\" at position [%d,%d] to [%d,%d], ", m[0], lineNumber, pos, lineNumber, pos-1+len(m[0]))
 				// look for symbol in the range above
 				prop := matrixRange{ln: lineNumber - 1, st: pos - 1, end: pos + len(m[0]) + 1}
 				ts := inputSlice[prop.ln][prop.st:prop.end]
@@ -135,15 +126,6 @@ func main() {
 
 }
 
-/*func LookAround(r, c int) []string {
-	lookRow := r
-	lookCol := c
-	// look upper left
-	if reNumber.FindAllString(inputMatrix[lookRow][lookCol], 1) != nil { //found a number
-		// look left from here
-	}
-}*/
-
 func FindSymbol(testString string) (bool, string) {
 	r := reNotNumberOrDot.FindAllStringSubmatch(testString, -1)
 	if reNotNumberOrDot.FindAllStringSubmatch(testString, -1) != nil {
@@ -152,21 +134,3 @@ func FindSymbol(testString string) (bool, string) {
 		return false, ""
 	}
 }
-
-/*func SanitizeCoords(proposed matrixRange) (fixed matrixRange) {
-	fixed = proposed
-	if proposed.ln < 0 {
-		fixed.ln = 0
-	} else if proposed.ln >= pageHeight {
-		fixed.ln = pageHeight - 1
-	}
-
-	if proposed.st < 0 {
-		fixed.st = 0
-	}
-
-	if proposed.end >= pageWidth {
-		fixed.end = pageWidth - 1
-	}
-	return
-}*/
