@@ -25,7 +25,8 @@ func main() {
 
 	result = getPeriod(currentNodes[0])
 
-	// each path is cyclical with a fixed period, once we have the period of each path the solution is just the Least Common Multiple of them
+	// each path is cyclical with a fixed period, once we have the
+	// period of each path the solution is just the Least Common Multiple of them
 	for p := 1; p < len(currentNodes); p++ {
 		result = LCM(result, getPeriod(currentNodes[p]))
 	}
@@ -64,15 +65,6 @@ func LCM(a, b int, integers ...int) int {
 	}
 
 	return result
-}
-
-func areAtEnd(currentNodes []string) bool {
-	for _, k := range currentNodes {
-		if k[2:] != "Z" {
-			return false
-		}
-	}
-	return true
 }
 
 func findStartNodes() []string {
